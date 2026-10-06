@@ -65,7 +65,7 @@ function iniciarSesion() {
         );
 
         if (clienteEncontrado) {
-            console.log(`🔓 Sesión iniciada: ${clienteEncontrado.usuario}`);
+            console.log(`Sesión iniciada: ${clienteEncontrado.usuario}`);
             moduloTransacciones(clienteEncontrado);
             return; // Sale del ciclo al iniciar sesión
         }
@@ -100,7 +100,7 @@ function moduloTransacciones(cliente) {
                 let montoRetiro = parseFloat(prompt("¿Cuánto dinero desea retirar?"));
                 if (montoRetiro > 0 && montoRetiro <= cliente.saldo) {
                     cliente.saldo -= montoRetiro;
-                    cliente.movimientos.push(`[${ahora}] Retiro: -$${montoRetiro}`);
+                    cliente.movimientos.push(`${ahora} Retiro: -$${montoRetiro}`);
                     
                     // Actualización directa en localStorage
                     localStorage.setItem("bancoClientes", JSON.stringify(listaClientes));
@@ -119,7 +119,7 @@ function moduloTransacciones(cliente) {
                 let montoConsignar = parseFloat(prompt("¿Cuánto dinero desea consignar?"));
                 if (montoConsignar > 0) {
                     cliente.saldo += montoConsignar;
-                    cliente.movimientos.push(`[${ahora}] Consignación: +$${montoConsignar}`);
+                    cliente.movimientos.push(`${ahora} Consignación: +$${montoConsignar}`);
                     
                     localStorage.setItem("bancoClientes", JSON.stringify(listaClientes));
                     console.log(`Consignación exitosa. Nuevo saldo: $${cliente.saldo}`);
