@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Plata - Financial Bank</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- NAVEGACIÓN Y CABECERA INSTITUCIONAL -->
+    <header class="navbar">
+        <div class="logo-container">
+            <span class="logo-text">MI PLATA</span>
+            <small class="logo-subtext">FINANCIAL BANK</small>
+        </div>
+        <nav class="nav-links" id="navPublico">
+            <a href="#inicio">Inicio</a>
+            <button id="btnNavLogin" class="btn-link">Iniciar Sesión</button>
+            <button id="btnNavRegistro" class="btn-primary">Registrarse</button>
+        </nav>
+        <div class="user-info-header hidden" id="headerUsuario">
+            <span>Usuario: <strong id="lblUsuarioHeader">---</strong></span>
+            <button id="btnCerrarSesion" class="btn-danger">Salir [->]</button>
+        </div>
+    </header>
+    <main class="main-container">
+        <!-- 1. LANDING PAGE (PÁGINA PRINCIPAL INSTITUCIONAL) -->
+        <section id="vistaLanding" class="vista">
+            <div class="hero">
+                <h1>Bienvenido a Mi Plata Financial Bank</h1>
+                <p>Tu banco digital seguro, rápido y confiable.</p>
+                <div class="hero-actions">
+                    <button id="btnHeroLogin" class="btn-primary">Ingresar al Cajero</button>
+                    <button id="btnHeroRegistro" class="btn-secondary">Crear una Cuenta</button>
+                </div>
+            </div>
+            
+            <!-- Contenedor responsivo tipo rejilla (Símil maqueta Desktop/Tablet) -->
+            <div class="features-grid">
+                <article class="feature-card">
+                    <h3>Cuenta de Ahorros</h3>
+                    <p>Guarda tu dinero y obtén rendimientos con baja tasa mensual.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Cuenta Corriente</h3>
+                    <p>Gestión diaria con posibilidad de sobregiro hasta del 20%.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Tarjeta de Crédito</h3>
+                    <p>Financia tus compras a cuotas desde 0% de interés.</p>
+                </article>
+            </div>
+        </section>
+        <!-- 2. MÓDULO DE LOGIN -->
+        <section id="vistaLogin" class="vista hidden">
+            <div class="card-form">
+                <h2>Iniciar Sesión</h2>
+                <form id="formLogin">
+                    <div class="form-group">
+                        <label for="txtUsuario">Nombre de Usuario</label>
+                        <input type="text" id="txtUsuario" required autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtClave">Contraseña</label>
+                        <input type="password" id="txtClave" required autocomplete="current-password">
+                    </div>
+                    
+                    <!-- Contador visual de intentos -->
+                    <div class="intentos-box" id="boxIntentos">
+                        <span>Intentos fallidos: <strong id="lblIntentos">0</strong> / 3</span>
+                    </div>
+                    <button type="submit" class="btn-primary btn-block">Ingresar</button>
+                </form>
+                <div class="form-footer">
+                    <button id="btnIrARegistro" class="btn-link">¿No tienes cuenta? Regístrate</button>
+                </div>
+            </div>
+        </section>
+        <!-- 3. MÓDULO DE REGISTRO DE NUEVOS CLIENTES -->
+        <section id="vistaRegistro" class="vista hidden">
+            <div class="card-form">
+                <h2>Registro de Cliente</h2>
+                <form id="formRegistro">
+                    <div class="form-group">
+                        <label for="txtRegIdentificacion">Número de Identificación</label>
+                        <input type="text" id="txtRegIdentificacion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtRegNombre">Nombre Completo</label>
+                        <input type="text" id="txtRegNombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtRegCelular">Teléfono Celular</label>
+                        <input type="tel" id="txtRegCelular" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtRegUsuario">Nombre de Usuario (Único)</label>
+                        <input type="text" id="txtRegUsuario" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtRegClave">Contraseña</label>
+                        <input type="password" id="txtRegClave" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtRegConfirmacion">Confirmar Contraseña</label>
+                        <input type="password" id="txtRegConfirmacion" required>
+                    </div>
+                    <fieldset class="productos-apertura">
+                        <legend>Apertura de Productos Iniciales</legend>
+                        <div class="chk-group">
+                            <input type="checkbox" id="chkAhorros">
+                            <label for="chkAhorros">Cuenta de Ahorros</label>
+                            <input type="number" id="numMontoAhorros" placeholder="Saldo inicial ($)" min="0" disabled>
+                        </div>
+                        <div class="chk-group">
+                            <input type="checkbox" id="chkCorriente">
+                            <label for="chkCorriente">Cuenta Corriente</label>
+                            <input type="number" id="numMontoCorriente" placeholder="Saldo inicial ($)" min="0" disabled>
+                        </div>
+                        <div class="chk-group">
+                            <input type="checkbox" id="chkTarjeta">
+                            <label for="chkTarjeta">Tarjeta de Crédito</label>
+                            <input type="number" id="numCupoTarjeta" placeholder="Cupo asignado ($)" min="1" disabled>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="btn-primary btn-block">Registrarse</button>
+                </form>
+            </div>
+        </section>
+        <!-- 4. PANEL DE CUENTA: accesos laterales, saldo y operaciones -->
+        <section id="vistaTransacciones" class="vista hidden">
+            <div class="transaction-dashboard">
+                <aside class="transaction-sidebar" aria-label="Accesos de cuenta">
+                    <div class="sidebar-monogram" aria-hidden="true">MP</div>
+                    <p class="sidebar-caption">MI CUENTA</p>
+                    <a class="sidebar-item active" href="#resumenCuenta">
+                        <span aria-hidden="true">◉</span>
+                        <span>Resumen</span>
+                    </a>
+                    <a class="sidebar-item" href="#operacionesCuenta">
+                        <span aria-hidden="true">↗</span>
+                        <span>Operaciones</span>
+                    </a>
+                    <a class="sidebar-item" href="#panelOperacionDinamica">
+                        <span aria-hidden="true">◷</span>
+                        <span>Movimientos</span>
+                    </a>
+                    <div class="sidebar-security">
+                        <span aria-hidden="true">✓</span>
+                        <p><strong>Conexión segura</strong><small>Mi Plata protege tu cuenta</small></p>
+                    </div>
+                </aside>
+                <div class="transaction-main">
+                    <div class="transaction-heading" id="resumenCuenta">
+                        <div>
+                            <p class="transaction-kicker">BIENVENIDO A MI PLATA</p>
+                            <h1>Resumen de cuenta</h1>
+                            <p>Consulta tu saldo y realiza tus operaciones.</p>
+                        </div>
+                        <div class="producto-selector-bar">
+                            <label for="cboProductosCliente">Producto activo</label>
+                            <select id="cboProductosCliente"></select>
+                        </div>
+                    </div>
+                    <section class="balance-panel" aria-label="Saldo disponible">
+                        <div class="balance-copy">
+                            <span class="saldo-label">Saldo disponible</span>
+                            <h2 id="lblSaldoMonto">$ 0</h2>
+                            <small id="lblDetalleSobregiro" class="text-subtle"></small>
+                        </div>
+                        <span class="balance-symbol" aria-hidden="true">$</span>
+                        <span class="balance-glow" aria-hidden="true"></span>
+                    </section>
+                    <section class="account-operations" id="operacionesCuenta">
+                        <div class="operations-heading">
+                            <div>
+                                <p class="transaction-kicker">GESTIONA TU DINERO</p>
+                                <h2>Operaciones</h2>
+                            </div>
+                            <span class="operations-hint">Elige una opción para continuar</span>
+                        </div>
+                        <div class="cajero-grid">
+                            <button id="btnAccionRetirar" class="btn-cajero" type="button">
+                                <span class="operation-icon" aria-hidden="true">↘</span>
+                                <span class="operation-label">Retirar</span>
+                                <span class="operation-arrow" aria-hidden="true">→</span>
+                            </button>
+                            <button id="btnAccionSaldo" class="btn-cajero" type="button">
+                                <span class="operation-icon" aria-hidden="true">$</span>
+                                <span class="operation-label">Consultar saldo</span>
+                                <span class="operation-arrow" aria-hidden="true">→</span>
+                            </button>
+                            <button id="btnAccionConsignar" class="btn-cajero" type="button">
+                                <span class="operation-icon" aria-hidden="true">＋</span>
+                                <span class="operation-label">Consignar</span>
+                                <span class="operation-arrow" aria-hidden="true">→</span>
+                            </button>
+                            <button id="btnAccionMovimientos" class="btn-cajero" type="button">
+                                <span class="operation-icon" aria-hidden="true">◷</span>
+                                <span class="operation-label">Movimientos</span>
+                                <span class="operation-arrow" aria-hidden="true">→</span>
+                            </button>
+                        </div>
+                    </section>
+                    <div class="extra-operations" aria-label="Más opciones">
+                        <button id="btnAccionTransferir" class="extra-operation" type="button">
+                            <span aria-hidden="true">⇄</span> Transferir
+                        </button>
+                        <button id="btnAccionTarjeta" class="extra-operation hidden" type="button">
+                            <span aria-hidden="true">▰</span> Tarjeta de crédito
+                        </button>
+                        <button id="btnAccionPerfil" class="extra-operation" type="button">
+                            <span aria-hidden="true">◎</span> Mi perfil
+                        </button>
+                        <button id="btnAccionAbrirProd" class="extra-operation" type="button">
+                            <span aria-hidden="true">＋</span> Abrir producto
+                        </button>
+                    </div>
+                    <section id="panelOperacionDinamica" class="panel-dinamico hidden" aria-live="polite">
+                        <h2 id="lblTituloOperacion">Resultado / Operación</h2>
+                        <div id="contenidoOperacion"></div>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- FOOTER CORPORATIVO -->
+    <footer class="footer">
+        <p>&copy; 2026 Mi Plata Financial Bank. Proyecto de Aula - CESDE.</p>
+        <p><small>Desarrollado para la asignatura de Herramientas de Programación JavaScript.</small></p>
+    </footer>
+    
+    <script src="cajero2.js"></script>
+    <script src="controlador.js"></script>   
+</body>
+</html>
