@@ -198,16 +198,17 @@ const RENDER = {
     },
 
     abrir(aviso) {
-        const faltantes = Object.entries(NOMBRES_PRODUCTO).filter(([tipo]) => !clienteActivo.producto(tipo));
-        if (!faltantes.length) {
-            return mostrarPanel("Abrir producto", `${avisoHtml(aviso)}<p>Ya tiene todos los productos disponibles.</p>`);
-        }
-        mostrarPanel("Abrir producto", `${avisoHtml(aviso)}` +
-            formulario("abrir",
-                selector("tipo", "Producto", faltantes) +
-                campoMonto("Saldo inicial o cupo ($)"),
-                "Abrir producto"));
+    const faltantes = Object.entries(NOMBRES_PRODUCTO).filter(([tipo]) => !clienteActivo.producto(tipo));
+    if (!faltantes.length) {
+        return mostrarPanel("Abrir producto", `${avisoHtml(aviso)}<p>Ya tiene todos los productos disponibles.</p>`);
     }
+    mostrarPanel("Abrir producto", `${avisoHtml(aviso)}` +
+        formulario("abrir",
+            selector("tipo", "Producto", faltantes) +
+            campo("valor", "Saldo inicial o cupo (\$)", { tipo: "number", extra: 'min="0" step="any"' }),
+            "Abrir producto"));
+}
+
 };
 
 const ACCIONES = {
